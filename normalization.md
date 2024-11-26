@@ -99,11 +99,6 @@ sent_at: TIMESTAMP, DEFAULT CURRENT_TIMESTAMP
 ### **Final Schema**
 The schema now adheres to 3NF, ensuring no redundancies or unnecessary dependencies.
 
---- 
-
-### **Markdown File**
-
-```markdown
 # Database Normalization for AirBnB-like System
 
 ## Introduction
@@ -130,8 +125,6 @@ The original schema was well-structured but had the following potential issues:
 ### Step 3: Third Normal Form (3NF)
 - Removed transitive dependencies:
   - **Location**: Extracted `location` into a separate table (`Location`) to prevent redundancy and ensure data reusability.
-  
----
 
 ## Normalized Schema
 ### User Table
@@ -154,8 +147,6 @@ The original schema was well-structured but had the following potential issues:
 
 ### Message Table
 - Handles communication between users.
-
----
 
 ## Conclusion
 The schema now complies with 3NF, ensuring minimal redundancy and enhanced data integrity while supporting scalability and maintainability.
