@@ -1,8 +1,4 @@
-## Normalizing My Database Design
-
-
-Here’s the process for normalizing my AirBnB-like system database to ensure it is in **Third Normal Form (3NF)**.
-
+# Normalizing the Database design
 ---
 
 ### **Normalized Schema**
@@ -25,16 +21,10 @@ property_id: Primary Key, UUID, Indexed
 host_id: Foreign Key, references User(user_id)
 name: VARCHAR, NOT NULL
 description: TEXT, NOT NULL
-location_id: Foreign Key, references Location(location_id)
+location: VARCHAR, NOT NULL
 pricepernight: DECIMAL, NOT NULL
 created_at: TIMESTAMP, DEFAULT CURRENT_TIMESTAMP
 updated_at: TIMESTAMP, ON UPDATE CURRENT_TIMESTAMP
-```
-
-#### **Location Table**
-```sql
-location_id: Primary Key, UUID
-location_name: VARCHAR, UNIQUE, NOT NULL
 ```
 
 #### **Booking Table**
@@ -82,22 +72,22 @@ sent_at: TIMESTAMP, DEFAULT CURRENT_TIMESTAMP
 ### **Normalization Steps**
 
 #### **Step 1: First Normal Form (1NF)**
-- **Ensure atomicity**: All attributes contain only single values. The schema already complies with this principle.
+- **Ensure atomicity**: All attributes contain only single values. The schema complies with this.
 - **Unique identifiers**: Every table has a Primary Key.
 
 #### **Step 2: Second Normal Form (2NF)**
-- **Remove partial dependencies**: Attributes depend on the whole Primary Key, not part of it. The schema meets this criterion because each non-key attribute is fully dependent on the Primary Key.
-- **Check for compound keys**: None of the tables use composite keys, so 2NF is already satisfied.
+- **Remove partial dependencies**: Non-key attributes depend only on the entire Primary Key. The schema meets this criterion since all attributes are fully dependent on their respective Primary Keys.
 
 #### **Step 3: Third Normal Form (3NF)**
-- **Remove transitive dependencies**: Non-key attributes must depend only on the Primary Key.
-  - **Location**: The `location` attribute in the `Property` table could potentially be reused across properties, leading to redundancy. A new `Location` table is introduced with `location_id` and `location_name`, linked to the `Property` table.
-  - All other attributes in the schema depend directly on the Primary Key.
+- **Remove transitive dependencies**: Non-key attributes must depend only on the Primary Key. 
+  - The `location` field remains in the `Property` table because it directly describes the property and does not introduce any redundancy or indirect dependency.
 
 ---
 
 ### **Final Schema**
-The schema now adheres to 3NF, ensuring no redundancies or unnecessary dependencies.
+The schema remains normalized to **3NF** while keeping the `location` field in the `Property` table.
+
+---
 
 # Database Normalization for AirBnB-like System
 
@@ -106,12 +96,10 @@ This document describes the steps taken to normalize the database schema for an 
 
 ---
 
-## Initial Observations
-The original schema was well-structured but had the following potential issues:
-1. **Location Redundancy**: The `location` attribute in the `Property` table could be reused across multiple properties, leading to potential duplication.
-2. **No Other Violations Identified**: The schema already adhered to the principles of 1NF and 2NF.
+## Observations
+1. **Location Field**: The `location` attribute in the `Property` table is directly related to the property and does not require normalization into a separate table. It is left as-is.
+2. The schema already adheres to the principles of 1NF and 2NF.
 
----
 
 ## Steps to Normalize
 
@@ -120,21 +108,20 @@ The original schema was well-structured but had the following potential issues:
 - Verified unique identifiers: Each table had a Primary Key.
 
 ### Step 2: Second Normal Form (2NF)
-- Checked for partial dependencies: All non-key attributes were fully dependent on the entire Primary Key.
+- Verified that non-key attributes depended entirely on the Primary Key.
 
 ### Step 3: Third Normal Form (3NF)
-- Removed transitive dependencies:
-  - **Location**: Extracted `location` into a separate table (`Location`) to prevent redundancy and ensure data reusability.
+- Checked for transitive dependencies:
+  - All non-key attributes depend directly on their respective Primary Keys.
+  - The `location` field was analyzed and retained in the `Property` table since it does not introduce redundancy or dependency on other attributes.
 
-## Normalized Schema
+
+## Final Schema
 ### User Table
 - Contains user-specific information.
 
 ### Property Table
-- Linked to the `Location` table to normalize location data.
-
-### Location Table
-- Stores unique location data.
+- Includes `location` as a direct property attribute.
 
 ### Booking Table
 - Manages property bookings by users.
@@ -148,5 +135,7 @@ The original schema was well-structured but had the following potential issues:
 ### Message Table
 - Handles communication between users.
 
+---
+
 ## Conclusion
-The schema now complies with 3NF, ensuring minimal redundancy and enhanced data integrity while supporting scalability and maintainability.
+The schema adheres to 3NF, ensuring minimal redundancy and enhanced data integrity while supporting scalability and maintainability.
