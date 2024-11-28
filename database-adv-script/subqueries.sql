@@ -8,3 +8,12 @@ WHERE (
     FROM reviews AS r
     WHERE r.property_id = p.property_id
 ) > 4.0;
+
+-- A correlated subquery to find users who have made more than 3 bookings.
+SELECT *
+FROM users AS u
+WHERE (
+    SELECT COUNT(*)
+    FROM bookings AS b
+    WHERE b.user_id = u.user_id
+) > 3;
