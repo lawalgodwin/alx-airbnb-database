@@ -12,7 +12,8 @@ ON u.user_id = b.user_id\G;
 SELECT p.name, p.location, p.pricepernight, r.comment
 FROM properties AS p
 LEFT JOIN reviews AS r
-ON p.property_id = r.property_id\G;
+ON p.property_id = r.property_id
+ORDER BY p.location\G;
 
 -- A query using a FULL OUTER JOIN to retrieve all users and all bookings, even if the user has no booking or a booking is not linked to a user
 SELECT CONCAT(u.first_name, " ", u.last_name) AS names, u.email, b.booking_id, b.start_date, b.end_date
