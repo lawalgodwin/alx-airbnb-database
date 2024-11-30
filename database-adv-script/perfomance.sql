@@ -5,7 +5,8 @@ SELECT b.*, u.*, props.*, p.*
 FROM users u
 JOIN bookings b ON b.user_id = u.user_id
 JOIN properties props ON b.property_id = props.property_id
-JOIN payments p ON p.booking_id = b.booking_id;
+JOIN payments p ON p.booking_id = b.booking_id
+WHERE p.booking_id IS NOT NULL AND props.property_id IS NOT NULL;
 
 -- Inspect the query to identify inefficiency
 -- EXPLAIN
@@ -14,9 +15,11 @@ EXPLAIN
     FROM users u
     JOIN bookings b ON b.user_id = u.user_id
     JOIN properties props ON b.property_id = props.property_id
-    JOIN payments p ON p.booking_id = b.booking_id\G;
+    JOIN payments p ON p.booking_id = b.booking_id
+    WHERE p.booking_id IS NOT NULL AND props.property_id IS NOT NULL;
+    \G;
 
--- Refactor the query to reduce bandwidth by selecting only required columns
+-- Refactor the query to reduce bandwidth by selecting only required columns and revome unnecessary WHERE CLAUSE
 EXPLAIN ANALYZE
     SELECT 
         b.booking_id, 
