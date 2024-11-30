@@ -11,3 +11,8 @@ CREATE INDEX idx_names ON users(first_name, last_name);
 -- DROP INDEX IF EXISTS `idx_status_and_bookingdate` ON bookings;
 -- CREATE INDEX IF NOT EXISTS idx_status_and_bookingdate ON bookings(bookings.status, created_at);
 CREATE INDEX idx_status_and_bookingdate ON bookings(status, created_at);
+
+-- index the location column on the properties table
+-- DROP INDEX IF EXISTS `idx_location` ON properties;
+-- CREATE INDEX IF NOT EXISTS idx_location ON properties(location);
+CREATE INDEX idx_location ON properties(location);

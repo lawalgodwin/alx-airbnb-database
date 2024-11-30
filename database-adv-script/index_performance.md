@@ -10,3 +10,7 @@ Hence, these columns need to be indexed
 ### Bookings Table
 We would like to filter bookings by status, and booking_date
 Hence, the columns(**status and created_at**) need to be indexed
+
+### properties Table
+We would like to filter properties by location
+Hence, the columns(**status and created_at**) need to be indexed
